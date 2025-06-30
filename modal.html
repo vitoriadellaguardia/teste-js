@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+    .modal-center {
+        transform: translate(-50%,-50%);
+    }
+    .drawer-closed {
+        transform: translateX(-100%);
+    }
+    .overlay-hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="flex gap-4 p-4">
+
+</div>
+
+<div id="modal" class="w-[300px] p-[30px] rounded-xl bg-white fixed top-1/2 left-1/2 modal center shadow-xl duration-200 invisible opacity-0 scale-50 z-50">
+<h2 class="flex justify-between items-center text-lg font-bold mb-4"> 
+<!-- titulo do modal -->
+<span onclick="toggleModal()" class="cursor-pointer text-gray-500 hover:text-gray-700">X</span>
+</h2>
+<p class="text-pink-700">Oláaaaa</p>
+</div>
+
+<div id="drawer-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 overlay-hidden"></div>
+
+
+    <button onclick="modal()" class="bg-teal-500 leading-[40px] px-6 rounded text-white">Abrir</button>
+    <div id="modal" class="w-[300px] p-[30px] rounded-xl bg-white fixed top-1/2 left-1/2 -translate-1/2 shadow-xl duration-200 invisible opacity-0 scale-50">
+        <h2 class="flex justify-between">Titulo do modal <span>X</span></h2>
+        <p>Oláaaa</p>
+    </div>
+
+    <script>
+        function modal(){
+            const divModal = document.querySelector("#modal");
+            if(divModal.classList.contains("invisible")){
+                divModal.classList.remove("invisible", "opacity-0", "scale-50");
+            }else{
+                divModal.classList.add("invisible", "opacity-0", "scale-50");
+            }
+        }
+
+    </script>
+</body>
+</html>
