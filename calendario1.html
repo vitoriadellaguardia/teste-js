@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>calendario</title>
+
+</head>
+
+<body>
+
+    <select id="dia"></select>
+
+        <select id="mes"></select>
+
+            <select id="ano"></select>
+
+
+
+
+
+
+
+    <script>
+
+const selectDia = document.querySelector("#dia");
+
+const selectMes = document.querySelector("#mes");
+
+const selectAno = document.querySelector("#ano");
+
+
+
+
+
+
+
+for (let i = 1; i <= 31; i ++){
+
+selectDia.innerHTML += `<option value="${i}">${i}</option>`;
+
+
+
+}
+
+
+
+const meses = ["janeiro", "fevereiro", "março", "abril"];
+
+for (let i = 0; i < meses.length; i++){
+
+    selectMes.innerHTML += `<option value="">${meses[i]}</option>`;
+
+}
+
+
+
+for (let i = 2025; i >= 1975; i--){
+
+    selectAno.innerHTML += `<option value="${i}">${i}</option>`;
+
+}
+
+
+
+    </script>
+
+</body>
+
+</html> 
