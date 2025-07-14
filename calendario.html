@@ -5,26 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendário</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    </head>
+</head>
 
-    <!-- Texto principal e caixinha -->
 <body class="bg-pink-200 flex items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
     <div class="bg-yellow-400 p-9 sm:p-7 rounded-lg shadow-xl max-w-md w-full">
         <h1 class="text-4xl font-extrabold text-purple-900 mb-6 text-center">Selecione uma data</h1>
 
-        <!-- CAIXAS SELECT DIA MES E ANO -->
         <div class="flex flex-wrap justify-center gap-5 sm:gap-5 mb-6">
-            <select id="dia" class="block w-full sm:w-auto flex-grow border border-pink-500 rounded-md py-2 px-3 text-base sm:text-lg  transition duration-150 ease-in-out"></select>
-            <select id="mes" class="block w-full sm:w-auto flex-grow border border-pink-500 rounded-md py-2 px-3 text-base sm:text-lg  transition duration-150 ease-in-out"></select>
-            <select id="ano" class="block w-full sm:w-auto flex-grow border border-pink-500 rounded-md py-2 px-3 text-base sm:text-lg  transition duration-150 ease-in-out"></select>
+            <select id="dia" class="block w-full sm:w-auto flex-grow border border-pink-500 rounded-md py-2 px-3 text-base sm:text-lg transition duration-150 ease-in-out"></select>
+            <select id="mes" class="block w-full sm:w-auto flex-grow border border-pink-500 rounded-md py-2 px-3 text-base sm:text-lg transition duration-150 ease-in-out"></select>
+            <select id="ano" class="block w-full sm:w-auto flex-grow border border-pink-500 rounded-md py-2 px-3 text-base sm:text-lg transition duration-150 ease-in-out"></select>
         </div>
 
         <button id="btnMostrarData" class="w-full bg-pink-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-md shadow-lg transition duration-600 ease-in-out transform hover:scale-105">
-            Mostrar Data e Verificar se é Ano Bissexto <
+            Mostrar Data e Verificar se é Ano Bissexto
         </button>
 
-        <p id="resultadoData" class="mt-8 p-5 bg-blue-50 border-l-4 border-blue-500 text-blue-800 rounded-lg text-lg font-medium hidden">
-            </p>
+        <p id="resultadoData" class="mt-8 p-5 bg-blue-50 border-l-4 border-yellow-900 text-blue-800 rounded-lg text-lg font-medium hidden">
+        </p>
     </div>
 
     <script>
@@ -40,39 +38,43 @@
          * Preenche o select de dias com opções de 1 a 31.
          */
         function preencherDias() {
-            selectDia.innerHTML = ""; // Limpa antes de preencher
+            // Limpa antes de preencher
             for (let i = 1; i <= 31; i++) {
                 selectDia.innerHTML += `<option value="${i}">${i}</option>`;
             }
         }
 
         /**
-         * Preenche o select de meses com os nomes e valores corretos.
+         select de meses 
          */
-       const meses = ["janeiro", "fevereiro", "março", "abril"];
-
-for (let i = 0; i < meses.length; i++){
-
-    selectMes.innerHTML += `<option value="">${meses[i]}</option>`;
-
-}
+        function preencherMeses() {
+            const mesesNomes = [
+                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+            ];
+            selectMes.innerHTML = ""; // Limpa antes de preencher
+            for (let i = 0; i < mesesNomes.length; i++) {
+                // O valor do mês deve ser (i + 1) para representar 1 a 12
+                selectMes.innerHTML += `<option value="${i + 1}">${mesesNomes[i]}</option>`;
+            }
+        }
 
         /**
-         * Preenche o select de anos, de 2025 até 1975.
+         select de anos
          */
-       for (let i = 2025; i >= 1975; i--){
-
-    selectAno.innerHTML += `<option value="${i}">${i}</option>`;
-
-}
+        function preencherAnos() {
+            selectAno.innerHTML = ""; // Limpa antes de preencher
+            for (let i = 2025; i >= 1975; i--) {
+                selectAno.innerHTML += `<option value="${i}">${i}</option>`;
+            }
+        }
 
         /**
-         * Ajusta o número de dias no mês com base no mês e ano selecionados.
-         * Isso é crucial para datas válidas (ex: fevereiro ter 28 ou 29 dias).
+         * AjustaR o número de dias no mês com base no mês e ano selecionados.
          */
         function ajustarDiasNoMes() {
             const anoSelecionado = parseInt(selectAno.value);
-            const mesSelecionado = parseInt(selectMes.value);
+            const mesSelecionado = parseInt(selectMes.value); // (1-12)
             let diasNoMes = 31;
 
             if (mesSelecionado === 2) { // Fevereiro
@@ -81,7 +83,7 @@ for (let i = 0; i < meses.length; i++){
                 diasNoMes = 30;
             }
 
-            // Guarda o dia atualmente selecionado para tentar mantê-lo
+            // Guarda o dia atualmente selecionado
             const diaAtualSelecionado = parseInt(selectDia.value);
             selectDia.innerHTML = ""; // Limpa os dias
             for (let i = 1; i <= diasNoMes; i++) {
@@ -97,11 +99,7 @@ for (let i = 0; i < meses.length; i++){
 
         /**
          * Verifica se um ano é bissexto.
-         * Regras para ano bissexto:
-         * - Divisível por 4
-         * - NÃO divisível por 100, A MENOS QUE seja divisível por 400
-         * @param {number} ano - O ano a ser verificado.
-         * @returns {boolean} True se o ano for bissexto, False caso contrário.
+        ano bissexto: Divisível por 4 - NÃO divisível por 100, A MENOS QUE seja divisível por 400
          */
         function isLeapYear(year) {
             return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
@@ -119,7 +117,7 @@ for (let i = 0; i < meses.length; i++){
             // O mês em Date() é 0-indexado (Janeiro = 0).
             const dataObjeto = new Date(ano, mes - 1, dia);
 
-            // Validação rigorosa: verifica se o JS "corrigiu" a data (ex: 30 de Fev vira 1 de Mar).
+            //  verifica se o JS "corrigiu" a data (ex: 30 de Fev vira 1 de Mar).
             // Se a data criada não corresponde aos valores selecionados, é inválida.
             if (dataObjeto.getFullYear() !== ano ||
                 dataObjeto.getMonth() !== (mes - 1) ||
@@ -136,21 +134,21 @@ for (let i = 0; i < meses.length; i++){
             const statusBissexto = isLeapYear(ano) ? "é bissexto" : "não é bissexto";
 
             resultadoDataParagrafo.innerHTML = `
-                <strong class="text-blue-900">Data escolhida:</strong> ${dia}/${mes}/${ano}<br>
-                <strong class="text-blue-900">O ano ${ano}</strong> ${statusBissexto}.
+                <strong class="text-pink-900">Data:</strong> ${dia}/${mes}/${ano}<br>
+                <strong class="text-pink-900">O ano ${ano}</strong> ${statusBissexto}.
             `;
             resultadoDataParagrafo.classList.remove("hidden");
             // Restaura as classes de sucesso caso tenha sido erro antes
             resultadoDataParagrafo.classList.remove("bg-red-50", "border-red-500", "text-red-800");
-            resultadoDataParagrafo.classList.add("bg-blue-50", "border-blue-500", "text-blue-800");
+            resultadoDataParagrafo.classList.add("bg-blue-50", "border-blue-500", "text-pink-900");
         }
 
         // --- Inicialização e Event Listeners ---
 
         // Preenche os selects inicialmente
         preencherDias();
-        preencherMeses();
-        preencherAnos();
+        preencherMeses(); // Chamada agora para a função preencherMeses()
+        preencherAnos();  // Chamada agora para a função preencherAnos()
 
         // Seleciona a data atual como padrão nos selects
         const dataAtual = new Date();

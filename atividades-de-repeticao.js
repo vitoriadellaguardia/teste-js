@@ -24,10 +24,35 @@
 //     console.log(`Seja bem vindo(a), ${nomes[i]}`);
 // }
 
-let contador = 1;
-for (let i = 1; i <= 10; i++){
-    contador *= i;
+// let contador = 1;
+// for (let i = 1; i <= 10; i++){
+//     contador *= i;
+// }
+// console.log(`A multiplicação dos 10 primeiros numeros é: `, contador);
+
+// let contador = 0;
+// let numeros = [1,2,3,0]
+
+// while(numeros[contador] != undefined){
+//     contador++;
+// }
+// console.log(contador);
+
+let contador = 0;
+let numeros = [1,2,3,0]
+let nomes = ["camila", "matheus", "vitoria", "joao", "lais", "edgar", "Aquila"];
+
+function contar(array){
+    if(array){
+        let contador = 0
+while(array[contador] != undefined){
+    contador++;
+    }
+console.log(contador);
+}else{
+    console.log("Passe o array");
 }
-console.log(`A multiplicação dos 10 primeiros numeros é: `, contador);
+}
 
-
+contar(numeros)
+contar(nomes)
